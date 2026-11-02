@@ -1,0 +1,6 @@
+{
+  "name": "SIM-UJIAN: Administrasi Ujian Sekolah",
+  "description": "Sistem Administrasi Ujian Sekolah Berbasis Web: Kartu Ujian, Denah Tempat Duduk, Jadwal Pengawas, Daftar Hadir, Berita Acara, dan Cloud Sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
