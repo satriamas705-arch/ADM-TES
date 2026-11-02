@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Settings,
   Building,
@@ -11,7 +11,10 @@ import {
   Save,
   RotateCcw,
   Sliders,
-  Grid3X3
+  Grid3X3,
+  AlertCircle,
+  Undo2,
+  X
 } from 'lucide-react';
 import { PengaturanInstansi, RuangUjianConfig, Siswa, ExamAdminData } from '../types';
 import { KopSurat } from '../components/KopSurat';
@@ -34,6 +37,33 @@ export const PengaturanKopIdentitasView: React.FC<PengaturanKopIdentitasViewProp
   const [form, setForm] = useState<PengaturanInstansi>({ ...data.pengaturan });
   const [ruangList, setRuangList] = useState<RuangUjianConfig[]>([...data.ruangList]);
   const [saveSuccess, setSaveSuccess] = useState(false);
+
+  // Responsiveness state for room deletion & auto-allocate
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [recentlyDeleted, setRecentlyDeleted] = useState<{
+    item: RuangUjianConfig;
+    index: number;
+  } | null>(null);
+  const [toastMessage, setToastMessage] = useState<{
+    text: string;
+    type: 'success' | 'warning' | 'info';
+  } | null>(null);
+  const [showAutoAllocateConfirm, setShowAutoAllocateConfirm] = useState(false);
+
+  // Auto-dismiss toast
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        setToastMessage(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
+
+  // Sync internal state if prop data changes
+  useEffect(() => {
+    setRuangList([...data.ruangList]);
+  }, [data.ruangList]);
 
   // New Room Form
   const [newRuangNomor, setNewRuangNomor] = useState(`Ruang ${String(ruangList.length + 1).padStart(2, '0')}`);
@@ -93,17 +123,48 @@ export const PengaturanKopIdentitasView: React.FC<PengaturanKopIdentitasViewProp
     setNewRuangNama(`Ruang ${String(updated.length + 1).padStart(2, '0')}`);
   };
 
-  // Delete Room
-  const handleDeleteRuang = (id: string) => {
+  // Request room deletion with immediate inline confirmation
+  const handleRequestDeleteRuang = (id: string) => {
     if (ruangList.length <= 1) {
-      alert('Minimal harus ada 1 ruang ujian dalam sistem.');
+      setToastMessage({
+        text: 'Minimal harus ada 1 ruang ujian dalam sistem. Ruangan tidak dapat dihapus.',
+        type: 'warning'
+      });
       return;
     }
-    if (confirm('Hapus ruang ujian ini?')) {
-      const updated = ruangList.filter(r => r.id !== id);
-      setRuangList(updated);
-      onUpdateRuangList(updated);
-    }
+    setDeleteConfirmId(prev => (prev === id ? null : id));
+  };
+
+  // Immediate, fully responsive room deletion
+  const handleExecuteDeleteRuang = (ruang: RuangUjianConfig) => {
+    const index = ruangList.findIndex(r => r.id === ruang.id);
+    const updated = ruangList.filter(r => r.id !== ruang.id);
+    
+    // Save for undo
+    setRecentlyDeleted({ item: ruang, index });
+    setDeleteConfirmId(null);
+    setRuangList(updated);
+    onUpdateRuangList(updated);
+
+    setToastMessage({
+      text: `${ruang.nomor} (${ruang.nama}) berhasil dihapus.`,
+      type: 'warning'
+    });
+  };
+
+  // Undo delete room
+  const handleUndoDeleteRuang = () => {
+    if (!recentlyDeleted) return;
+    const { item, index } = recentlyDeleted;
+    const updated = [...ruangList];
+    updated.splice(index, 0, item);
+    setRuangList(updated);
+    onUpdateRuangList(updated);
+    setRecentlyDeleted(null);
+    setToastMessage({
+      text: `${item.nomor} berhasil dipulihkan kembali.`,
+      type: 'success'
+    });
   };
 
   // Update room capacity or layout inline
@@ -118,13 +179,15 @@ export const PengaturanKopIdentitasView: React.FC<PengaturanKopIdentitasViewProp
     onUpdateRuangList(updated);
   };
 
-  // Auto Allocate Students to Rooms (Requirement #13)
-  const handleAutoAllocate = () => {
-    if (confirm(`Apakah Anda yakin ingin mengalokasikan ${data.siswaList.length} siswa secara otomatis ke ${ruangList.length} ruangan yang aktif?`)) {
-      const allocated = autoAllocateRoomsAndSeats(data.siswaList, ruangList, 'kelas');
-      onUpdateSiswaList(allocated);
-      alert('Alokasi otomatis berhasil! Seluruh siswa telah mendapatkan ruang dan nomor meja masing-masing.');
-    }
+  // Auto Allocate Students to Rooms (Requirement #13) without blocking alert/confirm
+  const handleExecuteAutoAllocate = () => {
+    const allocated = autoAllocateRoomsAndSeats(data.siswaList, ruangList, 'kelas');
+    onUpdateSiswaList(allocated);
+    setShowAutoAllocateConfirm(false);
+    setToastMessage({
+      text: `Alokasi otomatis berhasil! ${data.siswaList.length} siswa telah didistribusikan ke ${ruangList.length} ruangan aktif.`,
+      type: 'success'
+    });
   };
 
   return (
@@ -575,6 +638,85 @@ export const PengaturanKopIdentitasView: React.FC<PengaturanKopIdentitasViewProp
       {/* TAB 3: PENGATURAN RUANG & KAPASITAS (Requirement #13) */}
       {activeTab === 'ruang' && (
         <div className="space-y-6">
+          {/* Notification / Toast Banner */}
+          {toastMessage && (
+            <div
+              className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 text-xs shadow-xs animate-in fade-in ${
+                toastMessage.type === 'warning'
+                  ? 'bg-amber-50 border-amber-200 text-amber-900'
+                  : toastMessage.type === 'success'
+                  ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+                  : 'bg-blue-50 border-blue-200 text-blue-900'
+              }`}
+            >
+              <div className="flex items-center space-x-2">
+                {toastMessage.type === 'warning' ? (
+                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                ) : (
+                  <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                )}
+                <span className="font-medium">{toastMessage.text}</span>
+              </div>
+              <div className="flex items-center space-x-2 shrink-0">
+                {recentlyDeleted && (
+                  <button
+                    type="button"
+                    onClick={handleUndoDeleteRuang}
+                    className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-amber-200 hover:bg-amber-300 text-amber-900 font-bold text-xs transition cursor-pointer shadow-xs active:scale-95"
+                  >
+                    <Undo2 className="w-3.5 h-3.5" />
+                    <span>Urungkan</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setToastMessage(null)}
+                  className="p-1 rounded-md hover:bg-black/5 text-slate-500 cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Modal Konfirmasi Auto-Alokasi */}
+          {showAutoAllocateConfirm && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-in fade-in">
+              <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Konfirmasi Distribusi Otomatis</h4>
+                    <p className="text-xs text-slate-500">Alokasi siswa ke ruangan & meja ujian</p>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Apakah Anda yakin ingin mengalokasikan <strong>{data.siswaList.length} siswa</strong> secara otomatis ke <strong>{ruangList.length} ruangan aktif</strong>? Nomor ruang dan nomor meja setiap siswa akan diatur berurutan secara otomatis.
+                </p>
+
+                <div className="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => setShowAutoAllocateConfirm(false)}
+                    className="px-4 py-2 rounded-xl border border-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-50 transition cursor-pointer"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleExecuteAutoAllocate}
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-sm transition cursor-pointer"
+                  >
+                    Lanjutkan Distribusi
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Auto Allocate Callout Banner */}
           <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-900 to-indigo-900 text-white flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-lg">
             <div>
@@ -589,8 +731,8 @@ export const PengaturanKopIdentitasView: React.FC<PengaturanKopIdentitasViewProp
             </div>
 
             <button
-              onClick={handleAutoAllocate}
-              className="px-5 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-bold text-xs shadow-md shadow-blue-500/30 transition flex items-center space-x-2 whitespace-nowrap active:scale-95"
+              onClick={() => setShowAutoAllocateConfirm(true)}
+              className="px-5 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-bold text-xs shadow-md shadow-blue-500/30 transition flex items-center space-x-2 whitespace-nowrap active:scale-95 cursor-pointer"
             >
               <Sparkles className="w-4 h-4" />
               <span>Jalankan Auto-Alokasi Ruang & Meja</span>
@@ -666,13 +808,34 @@ export const PengaturanKopIdentitasView: React.FC<PengaturanKopIdentitasViewProp
                       />
                     </div>
 
-                    <button
-                      onClick={() => handleDeleteRuang(ruang.id)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
-                      title="Hapus Ruang"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    {deleteConfirmId === ruang.id ? (
+                      <div className="flex items-center space-x-1.5 bg-red-50 border border-red-200 px-2.5 py-1 rounded-xl text-xs animate-in fade-in">
+                        <span className="text-red-700 font-semibold text-[11px] whitespace-nowrap">Hapus?</span>
+                        <button
+                          type="button"
+                          onClick={() => handleExecuteDeleteRuang(ruang)}
+                          className="px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-[11px] transition shadow-xs cursor-pointer"
+                        >
+                          Ya
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setDeleteConfirmId(null)}
+                          className="px-2 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 active:scale-95 text-slate-700 text-[11px] font-medium transition cursor-pointer"
+                        >
+                          Batal
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => handleRequestDeleteRuang(ruang.id)}
+                        className="p-2 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 active:scale-90 transition cursor-pointer group"
+                        title={`Hapus ${ruang.nomor}`}
+                      >
+                        <Trash2 className="w-4 h-4 transition-transform group-hover:scale-110" />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

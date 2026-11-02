@@ -11,7 +11,8 @@ import {
   Printer,
   FileCheck2,
   AlertTriangle,
-  ArrowRight
+  ArrowRight,
+  Shuffle
 } from 'lucide-react';
 import { ExamAdminData } from '../types';
 
@@ -62,6 +63,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             >
               <CreditCard className="w-4 h-4" />
               <span>Cetak Kartu Ujian Siswa</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('pembagian_ruang')}
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-purple-700/80 hover:bg-purple-600/80 text-white font-semibold text-xs border border-purple-500/40 transition active:scale-95"
+            >
+              <Shuffle className="w-4 h-4" />
+              <span>Pembagian Peserta per Ruang</span>
             </button>
             <button
               onClick={() => setActiveTab('denah')}
@@ -252,7 +260,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <thead>
                 <tr className="border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
                   <th className="py-2.5 px-3">Hari & Tanggal</th>
-                  <th className="py-2.5 px-3">Sesi</th>
                   <th className="py-2.5 px-3">Waktu</th>
                   <th className="py-2.5 px-3">Mata Pelajaran</th>
                   <th className="py-2.5 px-3">Durasi</th>
@@ -263,11 +270,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <tr key={item.id} className="hover:bg-slate-50/70 transition">
                     <td className="py-2.5 px-3 font-semibold text-slate-800">
                       {item.hari}, {item.tanggal}
-                    </td>
-                    <td className="py-2.5 px-3">
-                      <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold">
-                        Sesi {item.sesi}
-                      </span>
                     </td>
                     <td className="py-2.5 px-3 font-mono text-slate-600">
                       {item.waktuMulai} - {item.waktuSelesai}

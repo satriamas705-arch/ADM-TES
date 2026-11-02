@@ -79,6 +79,7 @@ export interface ChecklistPengawasanItem {
 export interface JadwalPelajaranItem {
   id: string;
   hari: 'Senin' | 'Selasa' | 'Rabu' | 'Kamis' | 'Jumat' | 'Sabtu';
+  tanggal?: string; // Tanggal pelaksanaan (format YYYY-MM-DD, e.g. 2026-11-23)
   jamKe: number;
   waktu: string;
   kelas: string;

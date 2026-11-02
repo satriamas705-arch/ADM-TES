@@ -25,10 +25,10 @@ export const DEFAULT_PENGATURAN: PengaturanInstansi = {
 };
 
 export const DEFAULT_RUANG: RuangUjianConfig[] = [
-  { id: 'R-01', nomor: 'Ruang 01', nama: 'Ruang 01 (Kelas 7A)', kapasitas: 20, baris: 5, kolom: 4 },
-  { id: 'R-02', nomor: 'Ruang 02', nama: 'Ruang 02 (Kelas 7B)', kapasitas: 20, baris: 5, kolom: 4 },
-  { id: 'R-03', nomor: 'Ruang 03', nama: 'Ruang 03 (Lab Komputer 1)', kapasitas: 20, baris: 5, kolom: 4 },
-  { id: 'R-04', nomor: 'Ruang 04', nama: 'Ruang 04 (Lab Komputer 2)', kapasitas: 20, baris: 5, kolom: 4 },
+  { id: 'R-01', nomor: 'Ruang 01', nama: 'Ruang 01 (Kelas 7A)', kapasitas: 32, baris: 8, kolom: 4 },
+  { id: 'R-02', nomor: 'Ruang 02', nama: 'Ruang 02 (Kelas 7B)', kapasitas: 32, baris: 8, kolom: 4 },
+  { id: 'R-03', nomor: 'Ruang 03', nama: 'Ruang 03 (Lab Komputer 1)', kapasitas: 32, baris: 8, kolom: 4 },
+  { id: 'R-04', nomor: 'Ruang 04', nama: 'Ruang 04 (Lab Komputer 2)', kapasitas: 32, baris: 8, kolom: 4 },
 ];
 
 export const INITIAL_PENGAWAS: Pengawas[] = [
@@ -43,7 +43,7 @@ export const INITIAL_PENGAWAS: Pengawas[] = [
 ];
 
 export const INITIAL_SISWA: Siswa[] = [
-  // Ruang 01
+  // Ruang 01 (32 Siswa Lengkap Meja 1 s.d. 32)
   { id: 'S-01', nis: '2401', nisn: '0098765431', nama: 'Achmad Dani Saputra', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-001-8', ruang: 'Ruang 01', nomorMeja: 1, sesi: 1 },
   { id: 'S-02', nis: '2402', nisn: '0098765432', nama: 'Adelia Putri Kirana', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-002-7', ruang: 'Ruang 01', nomorMeja: 2, sesi: 1 },
   { id: 'S-03', nis: '2403', nisn: '0098765433', nama: 'Ahmad Faiz Al-Ghifari', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-003-6', ruang: 'Ruang 01', nomorMeja: 3, sesi: 1 },
@@ -64,18 +64,52 @@ export const INITIAL_SISWA: Siswa[] = [
   { id: 'S-18', nis: '2418', nisn: '0098765448', nama: 'Olivia Citra Anggraini', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-018-9', ruang: 'Ruang 01', nomorMeja: 18, sesi: 1 },
   { id: 'S-19', nis: '2419', nisn: '0098765449', nama: 'Panji Gumilang Pangestu', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-019-8', ruang: 'Ruang 01', nomorMeja: 19, sesi: 1 },
   { id: 'S-20', nis: '2420', nisn: '0098765450', nama: 'Qori Amalia Fauziah', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-020-7', ruang: 'Ruang 01', nomorMeja: 20, sesi: 1 },
+  { id: 'S-21', nis: '2421', nisn: '0098765451', nama: 'Rafi Ahmad Fauzan', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-021-6', ruang: 'Ruang 01', nomorMeja: 21, sesi: 1 },
+  { id: 'S-22', nis: '2422', nisn: '0098765452', nama: 'Riana Safitri', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-022-5', ruang: 'Ruang 01', nomorMeja: 22, sesi: 1 },
+  { id: 'S-23', nis: '2423', nisn: '0098765453', nama: 'Rizky Maulana Putra', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-023-4', ruang: 'Ruang 01', nomorMeja: 23, sesi: 1 },
+  { id: 'S-24', nis: '2424', nisn: '0098765454', nama: 'Sabrina Ayu Nadhira', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-024-3', ruang: 'Ruang 01', nomorMeja: 24, sesi: 1 },
+  { id: 'S-25', nis: '2425', nisn: '0098765455', nama: 'Syahrul Hidayat', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-025-2', ruang: 'Ruang 01', nomorMeja: 25, sesi: 1 },
+  { id: 'S-26', nis: '2426', nisn: '0098765456', nama: 'Tania Maharani', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-026-1', ruang: 'Ruang 01', nomorMeja: 26, sesi: 1 },
+  { id: 'S-27', nis: '2427', nisn: '0098765457', nama: 'Tegar Prasetyo', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-027-9', ruang: 'Ruang 01', nomorMeja: 27, sesi: 1 },
+  { id: 'S-28', nis: '2428', nisn: '0098765458', nama: 'Ulfah Nur Khasanah', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-028-8', ruang: 'Ruang 01', nomorMeja: 28, sesi: 1 },
+  { id: 'S-29', nis: '2429', nisn: '0098765459', nama: 'Vicky Firmansyah', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-029-7', ruang: 'Ruang 01', nomorMeja: 29, sesi: 1 },
+  { id: 'S-30', nis: '2430', nisn: '0098765460', nama: 'Winda Astuti Dewi', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-030-6', ruang: 'Ruang 01', nomorMeja: 30, sesi: 1 },
+  { id: 'S-31', nis: '2431', nisn: '0098765461', nama: 'Yudha Pratama Wijaya', kelas: '9A', jenisKelamin: 'L', nomorPeserta: '02-045-031-5', ruang: 'Ruang 01', nomorMeja: 31, sesi: 1 },
+  { id: 'S-32', nis: '2432', nisn: '0098765462', nama: 'Zahra Aulia Rahma', kelas: '9A', jenisKelamin: 'P', nomorPeserta: '02-045-032-4', ruang: 'Ruang 01', nomorMeja: 32, sesi: 1 },
 
-  // Ruang 02
-  { id: 'S-21', nis: '2421', nisn: '0098765451', nama: 'Raditya Dika Firmansyah', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-021-6', ruang: 'Ruang 02', nomorMeja: 1, sesi: 1 },
-  { id: 'S-22', nis: '2422', nisn: '0098765452', nama: 'Rania Salma Humaira', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-022-5', ruang: 'Ruang 02', nomorMeja: 2, sesi: 1 },
-  { id: 'S-23', nis: '2423', nisn: '0098765453', nama: 'Satria Baja Tama', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-023-4', ruang: 'Ruang 02', nomorMeja: 3, sesi: 1 },
-  { id: 'S-24', nis: '2424', nisn: '0098765454', nama: 'Tiara Andini Kusuma', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-024-3', ruang: 'Ruang 02', nomorMeja: 4, sesi: 1 },
-  { id: 'S-25', nis: '2425', nisn: '0098765455', nama: 'Umar Faruq Al-Bantani', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-025-2', ruang: 'Ruang 02', nomorMeja: 5, sesi: 1 },
-  { id: 'S-26', nis: '2426', nisn: '0098765456', nama: 'Vina Panduwinata', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-026-1', ruang: 'Ruang 02', nomorMeja: 6, sesi: 1 },
-  { id: 'S-27', nis: '2427', nisn: '0098765457', nama: 'Wahyu Ramadhan', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-027-9', ruang: 'Ruang 02', nomorMeja: 7, sesi: 1 },
-  { id: 'S-28', nis: '2428', nisn: '0098765458', nama: 'Yasmin Zahra Kamila', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-028-8', ruang: 'Ruang 02', nomorMeja: 8, sesi: 1 },
-  { id: 'S-29', nis: '2429', nisn: '0098765459', nama: 'Zainul Arifin Mustofa', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-029-7', ruang: 'Ruang 02', nomorMeja: 9, sesi: 1 },
-  { id: 'S-30', nis: '2430', nisn: '0098765460', nama: 'Zaskia Adya Mecca', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-030-6', ruang: 'Ruang 02', nomorMeja: 10, sesi: 1 },
+  // Ruang 02 (32 Siswa Lengkap Meja 1 s.d. 32)
+  { id: 'S-33', nis: '2433', nisn: '0098765463', nama: 'Raditya Dika Firmansyah', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-033-3', ruang: 'Ruang 02', nomorMeja: 1, sesi: 1 },
+  { id: 'S-34', nis: '2434', nisn: '0098765464', nama: 'Rania Salma Humaira', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-034-2', ruang: 'Ruang 02', nomorMeja: 2, sesi: 1 },
+  { id: 'S-35', nis: '2435', nisn: '0098765465', nama: 'Satria Baja Tama', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-035-1', ruang: 'Ruang 02', nomorMeja: 3, sesi: 1 },
+  { id: 'S-36', nis: '2436', nisn: '0098765466', nama: 'Tiara Andini Kusuma', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-036-9', ruang: 'Ruang 02', nomorMeja: 4, sesi: 1 },
+  { id: 'S-37', nis: '2437', nisn: '0098765467', nama: 'Umar Faruq Al-Bantani', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-037-8', ruang: 'Ruang 02', nomorMeja: 5, sesi: 1 },
+  { id: 'S-38', nis: '2438', nisn: '0098765468', nama: 'Vina Panduwinata', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-038-7', ruang: 'Ruang 02', nomorMeja: 6, sesi: 1 },
+  { id: 'S-39', nis: '2439', nisn: '0098765469', nama: 'Wahyu Ramadhan', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-039-6', ruang: 'Ruang 02', nomorMeja: 7, sesi: 1 },
+  { id: 'S-40', nis: '2440', nisn: '0098765470', nama: 'Yasmin Zahra Kamila', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-040-5', ruang: 'Ruang 02', nomorMeja: 8, sesi: 1 },
+  { id: 'S-41', nis: '2441', nisn: '0098765471', nama: 'Zainul Arifin Mustofa', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-041-4', ruang: 'Ruang 02', nomorMeja: 9, sesi: 1 },
+  { id: 'S-42', nis: '2442', nisn: '0098765472', nama: 'Zaskia Adya Mecca', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-042-3', ruang: 'Ruang 02', nomorMeja: 10, sesi: 1 },
+  { id: 'S-43', nis: '2443', nisn: '0098765473', nama: 'Aditya Bagus Saputra', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-043-2', ruang: 'Ruang 02', nomorMeja: 11, sesi: 1 },
+  { id: 'S-44', nis: '2444', nisn: '0098765474', nama: 'Bella Safira Anggraeni', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-044-1', ruang: 'Ruang 02', nomorMeja: 12, sesi: 1 },
+  { id: 'S-45', nis: '2445', nisn: '0098765475', nama: 'Candra Wijaya', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-045-9', ruang: 'Ruang 02', nomorMeja: 13, sesi: 1 },
+  { id: 'S-46', nis: '2446', nisn: '0098765476', nama: 'Dara Puspitasari', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-046-8', ruang: 'Ruang 02', nomorMeja: 14, sesi: 1 },
+  { id: 'S-47', nis: '2447', nisn: '0098765477', nama: 'Erick Thohir Santoso', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-047-7', ruang: 'Ruang 02', nomorMeja: 15, sesi: 1 },
+  { id: 'S-48', nis: '2448', nisn: '0098765478', nama: 'Farah Quinn Nabila', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-048-6', ruang: 'Ruang 02', nomorMeja: 16, sesi: 1 },
+  { id: 'S-49', nis: '2449', nisn: '0098765479', nama: 'Gilang Dirga Perkasa', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-049-5', ruang: 'Ruang 02', nomorMeja: 17, sesi: 1 },
+  { id: 'S-50', nis: '2450', nisn: '0098765480', nama: 'Hesti Purwadinata', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-050-4', ruang: 'Ruang 02', nomorMeja: 18, sesi: 1 },
+  { id: 'S-51', nis: '2451', nisn: '0098765481', nama: 'Irfan Hakim Syahputra', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-051-3', ruang: 'Ruang 02', nomorMeja: 19, sesi: 1 },
+  { id: 'S-52', nis: '2452', nisn: '0098765482', nama: 'Jessica Iskandar Putri', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-052-2', ruang: 'Ruang 02', nomorMeja: 20, sesi: 1 },
+  { id: 'S-53', nis: '2453', nisn: '0098765483', nama: 'Kevin Julio Pangestu', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-053-1', ruang: 'Ruang 02', nomorMeja: 21, sesi: 1 },
+  { id: 'S-54', nis: '2454', nisn: '0098765484', nama: 'Luna Maya Astuti', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-054-9', ruang: 'Ruang 02', nomorMeja: 22, sesi: 1 },
+  { id: 'S-55', nis: '2455', nisn: '0098765485', nama: 'Morgan Oey Pratama', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-055-8', ruang: 'Ruang 02', nomorMeja: 23, sesi: 1 },
+  { id: 'S-56', nis: '2456', nisn: '0098765486', nama: 'Nabila Syakieb Zahra', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-056-7', ruang: 'Ruang 02', nomorMeja: 24, sesi: 1 },
+  { id: 'S-57', nis: '2457', nisn: '0098765487', nama: 'Oki Setiana Dewi', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-057-6', ruang: 'Ruang 02', nomorMeja: 25, sesi: 1 },
+  { id: 'S-58', nis: '2458', nisn: '0098765488', nama: 'Prilly Latuconsina', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-058-5', ruang: 'Ruang 02', nomorMeja: 26, sesi: 1 },
+  { id: 'S-59', nis: '2459', nisn: '0098765489', nama: 'Raffi Ahmad Darmawan', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-059-4', ruang: 'Ruang 02', nomorMeja: 27, sesi: 1 },
+  { id: 'S-60', nis: '2460', nisn: '0098765490', nama: 'Siti Badriah Utami', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-060-3', ruang: 'Ruang 02', nomorMeja: 28, sesi: 1 },
+  { id: 'S-61', nis: '2461', nisn: '0098765491', nama: 'Tora Sudiro Wibowo', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-061-2', ruang: 'Ruang 02', nomorMeja: 29, sesi: 1 },
+  { id: 'S-62', nis: '2462', nisn: '0098765492', nama: 'Ussy Sulistiawaty', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-062-1', ruang: 'Ruang 02', nomorMeja: 30, sesi: 1 },
+  { id: 'S-63', nis: '2463', nisn: '0098765493', nama: 'Vino Bastian Ramli', kelas: '9B', jenisKelamin: 'L', nomorPeserta: '02-045-063-9', ruang: 'Ruang 02', nomorMeja: 31, sesi: 1 },
+  { id: 'S-64', nis: '2464', nisn: '0098765494', nama: 'Wulan Guritno Sari', kelas: '9B', jenisKelamin: 'P', nomorPeserta: '02-045-064-8', ruang: 'Ruang 02', nomorMeja: 32, sesi: 1 },
 ];
 
 export const INITIAL_PERANGKAT: PerangkatPendukung[] = [
@@ -115,12 +149,12 @@ export const INITIAL_CHECKLIST_PENGAWASAN: ChecklistPengawasanItem[] = [
 ];
 
 export const INITIAL_JADWAL_PELAJARAN: JadwalPelajaranItem[] = [
-  { id: 'JPL-01', hari: 'Senin', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9A', mataPelajaran: 'Upacara & Bahasa Indonesia', guruPengampu: 'Dra. Hj. Siti Rahmawati, M.Pd.' },
-  { id: 'JPL-02', hari: 'Senin', jamKe: 2, waktu: '08:20 - 09:40', kelas: '9A', mataPelajaran: 'Matematika', guruPengampu: 'Hendro Wicaksono, S.Pd.' },
-  { id: 'JPL-03', hari: 'Selasa', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9A', mataPelajaran: 'Ilmu Pengetahuan Alam (IPA)', guruPengampu: 'Nurul Hidayati, S.Si.' },
-  { id: 'JPL-04', hari: 'Selasa', jamKe: 2, waktu: '08:20 - 09:40', kelas: '9A', mataPelajaran: 'Bahasa Inggris', guruPengampu: 'Agus Salim, S.Pd.' },
-  { id: 'JPL-05', hari: 'Rabu', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9A', mataPelajaran: 'Pendidikan Agama Islam', guruPengampu: 'Miftahul Huda, M.Pd.I.' },
-  { id: 'JPL-06', hari: 'Kamis', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9B', mataPelajaran: 'Informatika', guruPengampu: 'Budi Santoso, S.Kom.' },
+  { id: 'JPL-01', hari: 'Senin', tanggal: '2026-11-23', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9A', mataPelajaran: 'Upacara & Bahasa Indonesia', guruPengampu: 'Dra. Hj. Siti Rahmawati, M.Pd.' },
+  { id: 'JPL-02', hari: 'Senin', tanggal: '2026-11-23', jamKe: 2, waktu: '08:20 - 09:40', kelas: '9A', mataPelajaran: 'Matematika', guruPengampu: 'Hendro Wicaksono, S.Pd.' },
+  { id: 'JPL-03', hari: 'Selasa', tanggal: '2026-11-24', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9A', mataPelajaran: 'Ilmu Pengetahuan Alam (IPA)', guruPengampu: 'Nurul Hidayati, S.Si.' },
+  { id: 'JPL-04', hari: 'Selasa', tanggal: '2026-11-24', jamKe: 2, waktu: '08:20 - 09:40', kelas: '9A', mataPelajaran: 'Bahasa Inggris', guruPengampu: 'Agus Salim, S.Pd.' },
+  { id: 'JPL-05', hari: 'Rabu', tanggal: '2026-11-25', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9A', mataPelajaran: 'Pendidikan Agama Islam', guruPengampu: 'Miftahul Huda, M.Pd.I.' },
+  { id: 'JPL-06', hari: 'Kamis', tanggal: '2026-11-26', jamKe: 1, waktu: '07:00 - 08:20', kelas: '9B', mataPelajaran: 'Informatika', guruPengampu: 'Budi Santoso, S.Kom.' },
 ];
 
 export const INITIAL_JURNAL_HARIAN: JurnalHarian[] = [
@@ -206,10 +240,28 @@ export function loadLocalData(): ExamAdminData {
       existingPengaturan.kopBaris2 = existingPengaturan.namaSekolah || 'UPT SMP NEGERI 2 KLAKAH';
     }
 
+    // Auto-migrate rooms to 32 capacity if still at old default 20
+    const rawRuangList = parsed.ruangList || DEFAULT_RUANG;
+    const migratedRuangList = rawRuangList.map((r: RuangUjianConfig) => {
+      if (r.kapasitas === 20 && r.baris === 5 && r.kolom === 4) {
+        return { ...r, kapasitas: 32, baris: 8, kolom: 4 };
+      }
+      return r;
+    });
+
+    // Auto-migrate sample students from 30 to 64 (32 in Ruang 01 & 32 in Ruang 02)
+    const rawSiswaList = parsed.siswaList || INITIAL_SISWA;
+    let migratedSiswaList = rawSiswaList;
+    if (rawSiswaList.length === 30 && rawSiswaList[0]?.id === 'S-01' && rawSiswaList[29]?.id === 'S-30') {
+      migratedSiswaList = INITIAL_SISWA;
+    }
+
     return {
       ...getInitialData(),
       ...parsed,
-      pengaturan: { ...DEFAULT_PENGATURAN, ...existingPengaturan }
+      pengaturan: { ...DEFAULT_PENGATURAN, ...existingPengaturan },
+      ruangList: migratedRuangList,
+      siswaList: migratedSiswaList
     };
   } catch (e) {
     console.error('Failed to load local exam data, using defaults:', e);
@@ -266,17 +318,47 @@ export async function getCloudHistory(syncCode: string) {
 export function autoAllocateRoomsAndSeats(
   siswaList: Siswa[],
   ruangList: RuangUjianConfig[],
-  mode: 'kelas' | 'acak' = 'kelas'
+  mode: 'kelas' | 'silang' | 'acak' = 'kelas'
 ): Siswa[] {
-  const sorted = [...siswaList];
-  if (mode === 'kelas') {
-    sorted.sort((a, b) => a.kelas.localeCompare(b.kelas) || a.nama.localeCompare(b.nama));
-  } else {
-    // Fisher-Yates shuffle
+  let sorted: Siswa[] = [];
+
+  if (mode === 'silang') {
+    // Sistem Silang / Campur Antar Kelas (Interleaving classes for alternating desks)
+    const byClass: Record<string, Siswa[]> = {};
+    siswaList.forEach(s => {
+      const cls = s.kelas || 'Umum';
+      if (!byClass[cls]) byClass[cls] = [];
+      byClass[cls].push(s);
+    });
+
+    // Sort by name inside each class
+    Object.keys(byClass).forEach(cls => {
+      byClass[cls].sort((a, b) => a.nama.localeCompare(b.nama));
+    });
+
+    const classKeys = Object.keys(byClass);
+    let added = 0;
+    const total = siswaList.length;
+
+    while (added < total) {
+      for (const cls of classKeys) {
+        if (byClass[cls].length > 0) {
+          sorted.push(byClass[cls].shift()!);
+          added++;
+        }
+      }
+    }
+  } else if (mode === 'acak') {
+    sorted = [...siswaList];
     for (let i = sorted.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [sorted[i], sorted[j]] = [sorted[j], sorted[i]];
     }
+  } else {
+    // Mode 'kelas': Urut berdasarkan Kelas lalu Nama
+    sorted = [...siswaList].sort(
+      (a, b) => a.kelas.localeCompare(b.kelas) || a.nama.localeCompare(b.nama)
+    );
   }
 
   let ruangIdx = 0;
@@ -291,7 +373,8 @@ export function autoAllocateRoomsAndSeats(
     const assignedSeat = seatNum;
 
     seatNum++;
-    if (currentRuang && seatNum > currentRuang.kapasitas) {
+    const maxCapacity = currentRuang?.kapasitas || 32;
+    if (seatNum > maxCapacity) {
       seatNum = 1;
       ruangIdx++;
     }

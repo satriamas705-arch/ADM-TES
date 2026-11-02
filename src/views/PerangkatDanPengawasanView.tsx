@@ -312,7 +312,6 @@ export const PerangkatDanPengawasanView: React.FC<PerangkatDanPengawasanViewProp
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider">
                     <th className="py-3 px-3">Hari & Tanggal</th>
-                    <th className="py-3 px-3 text-center">Sesi</th>
                     <th className="py-3 px-3">Waktu (WIB)</th>
                     <th className="py-3 px-3">Kode</th>
                     <th className="py-3 px-3">Mata Pelajaran Ujian</th>
@@ -326,11 +325,6 @@ export const PerangkatDanPengawasanView: React.FC<PerangkatDanPengawasanViewProp
                     <tr key={item.id} className="hover:bg-slate-50 transition">
                       <td className="py-3 px-3 font-bold text-slate-800">
                         {item.hari}, {item.tanggal}
-                      </td>
-                      <td className="py-3 px-3 text-center">
-                        <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold">
-                          Sesi {item.sesi}
-                        </span>
                       </td>
                       <td className="py-3 px-3 font-mono font-semibold text-slate-700">
                         {item.waktuMulai} - {item.waktuSelesai}

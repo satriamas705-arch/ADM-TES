@@ -156,7 +156,6 @@ export const JadwalPengawasView: React.FC<JadwalPengawasViewProps> = ({
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider">
                 <th className="py-3 px-3 w-12 text-center">No</th>
                 <th className="py-3 px-3">Tanggal Pelaksanaan</th>
-                <th className="py-3 px-3 text-center">Sesi</th>
                 <th className="py-3 px-3">Ruang Ujian</th>
                 <th className="py-3 px-3">Pengawas Ruang I</th>
                 <th className="py-3 px-3">Pengawas Ruang II</th>
@@ -166,7 +165,7 @@ export const JadwalPengawasView: React.FC<JadwalPengawasViewProps> = ({
             <tbody className="divide-y divide-slate-100">
               {data.jadwalPengawasList.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400">
+                  <td colSpan={6} className="py-8 text-center text-slate-400">
                     Belum ada jadwal pengawas. Klik tombol "Alokasi Otomatis" untuk menghasilkan jadwal.
                   </td>
                 </tr>
@@ -175,11 +174,6 @@ export const JadwalPengawasView: React.FC<JadwalPengawasViewProps> = ({
                   <tr key={item.id} className="hover:bg-slate-50 transition">
                     <td className="py-3 px-3 text-center font-mono text-slate-500">{idx + 1}</td>
                     <td className="py-3 px-3 font-bold text-slate-800">{item.tanggal}</td>
-                    <td className="py-3 px-3 text-center">
-                      <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold">
-                        Sesi {item.sesi}
-                      </span>
-                    </td>
                     <td className="py-3 px-3 font-semibold text-indigo-900">{item.ruang}</td>
                     <td className="py-3 px-3 font-bold text-slate-900">{item.pengawas1Nama}</td>
                     <td className="py-3 px-3 font-bold text-slate-900">{item.pengawas2Nama || '-'}</td>
@@ -212,7 +206,6 @@ export const JadwalPengawasView: React.FC<JadwalPengawasViewProps> = ({
             <tr className="bg-gray-100 font-bold uppercase border-b border-black text-center">
               <th className="border border-black p-2 w-10">No</th>
               <th className="border border-black p-2 w-28">Tanggal</th>
-              <th className="border border-black p-2 w-16">Sesi</th>
               <th className="border border-black p-2 w-24">Ruang</th>
               <th className="border border-black p-2">Pengawas Ruang I</th>
               <th className="border border-black p-2">Pengawas Ruang II</th>
@@ -224,7 +217,6 @@ export const JadwalPengawasView: React.FC<JadwalPengawasViewProps> = ({
               <tr key={item.id} className="border-b border-black">
                 <td className="border border-black p-2 text-center font-mono">{idx + 1}</td>
                 <td className="border border-black p-2 font-semibold">{item.tanggal}</td>
-                <td className="border border-black p-2 text-center font-bold">Sesi {item.sesi}</td>
                 <td className="border border-black p-2 font-bold">{item.ruang}</td>
                 <td className="border border-black p-2 font-bold">{item.pengawas1Nama}</td>
                 <td className="border border-black p-2 font-bold">{item.pengawas2Nama}</td>

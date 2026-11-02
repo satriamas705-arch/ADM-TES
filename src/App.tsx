@@ -40,9 +40,10 @@ import { JurnalHarianView } from './views/JurnalHarianView';
 import { DaftarHadirPengawasView } from './views/DaftarHadirPengawasView';
 import { BeritaAcaraDanLaporanView } from './views/BeritaAcaraDanLaporanView';
 import { PengaturanKopIdentitasView } from './views/PengaturanKopIdentitasView';
+import { PembagianPesertaRuangView } from './views/PembagianPesertaRuangView';
 import { CloudSyncView } from './views/CloudSyncView';
-
-import { Printer, X, Sparkles, Menu } from 'lucide-react';
+import { Printer, X, Sparkles, Menu, Eye } from 'lucide-react';
+import { triggerResponsivePrint } from './utils/printHelper';
 
 export default function App() {
   const [data, setData] = useState<ExamAdminData>(() => loadLocalData());
@@ -139,7 +140,7 @@ export default function App() {
   const handleTriggerPrint = (mode?: string) => {
     if (mode) {
       setActiveTab(mode);
-      setTimeout(() => window.print(), 300);
+      triggerResponsivePrint(undefined, undefined, 200);
     } else {
       setIsPrintModalOpen(true);
     }
@@ -148,7 +149,7 @@ export default function App() {
   const handleSelectPrintItem = (tabId: string) => {
     setIsPrintModalOpen(false);
     setActiveTab(tabId);
-    setTimeout(() => window.print(), 350);
+    triggerResponsivePrint(undefined, undefined, 250);
   };
 
   return (
@@ -203,6 +204,16 @@ export default function App() {
             <DataSiswaView
               data={data}
               onUpdateSiswa={handleUpdateSiswa}
+              onTriggerPrint={handleTriggerPrint}
+            />
+          )}
+
+          {activeTab === 'pembagian_ruang' && (
+            <PembagianPesertaRuangView
+              data={data}
+              onUpdateSiswa={handleUpdateSiswa}
+              onUpdateRuangList={handleUpdateRuangList}
+              setActiveTab={setActiveTab}
               onTriggerPrint={handleTriggerPrint}
             />
           )}
@@ -328,6 +339,22 @@ export default function App() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <button
+                onClick={() => handleSelectPrintItem('pembagian_ruang')}
+                className="p-3 rounded-xl border border-blue-200 bg-blue-50/50 hover:border-blue-500 hover:bg-blue-100/60 transition text-left flex items-center space-x-3 sm:col-span-2"
+              >
+                <span className="p-2 rounded-lg bg-blue-600 text-white font-bold font-mono">00</span>
+                <div className="flex-1 flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-slate-800">Pembagian Peserta Tiap Ruang (Matriks Sesuai Gambar)</div>
+                    <div className="text-[11px] text-slate-500">Tabel alokasi ruang &times; kelas format resmi lampiran SK</div>
+                  </div>
+                  <span className="text-[10px] bg-blue-100 text-blue-800 font-extrabold px-2 py-0.5 rounded">
+                    Format Gambar
+                  </span>
+                </div>
+              </button>
+
               <button
                 onClick={() => handleSelectPrintItem('kartu_ujian')}
                 className="p-3 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition text-left flex items-center space-x-3"

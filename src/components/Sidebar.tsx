@@ -15,7 +15,8 @@ import {
   Settings,
   Cloud,
   LayoutDashboard,
-  Sparkles
+  Sparkles,
+  Shuffle
 } from 'lucide-react';
 import { ExamAdminData } from '../types';
 
@@ -59,6 +60,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       group: 'DATA & PESERTA',
       items: [
         { id: 'siswa', label: '1. Data Siswa', icon: Users, count: data.siswaList.length },
+        { id: 'pembagian_ruang', label: 'Pembagian Peserta Tiap Ruang', icon: Shuffle, count: data.ruangList.length, highlightBadge: 'Baru' },
         { id: 'denah', label: '3. Denah Tempat Duduk', icon: Grid3X3, count: data.ruangList.length },
         { id: 'kartu_ujian', label: '5. Cetak Kartu Ujian', icon: CreditCard, count: data.siswaList.length, highlight: true },
         { id: 'daftar_hadir', label: '7. Daftar Peserta & Hadir', icon: FileSpreadsheet, count: undefined },

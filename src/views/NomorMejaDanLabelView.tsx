@@ -175,7 +175,7 @@ export const NomorMejaDanLabelView: React.FC<NomorMejaDanLabelViewProps> = ({ da
                           ))}
                         </div>
                         <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-2 py-0.5 rounded border border-gray-300">
-                          Sesi {siswa.sesi}
+                          {siswa.ruang}
                         </span>
                       </div>
                     </div>
@@ -221,7 +221,7 @@ export const NomorMejaDanLabelView: React.FC<NomorMejaDanLabelViewProps> = ({ da
                       <p>Tata Letak Kursi : <strong>{ruang.baris} Baris &times; {ruang.kolom} Kolom</strong></p>
                     </div>
                     <div>
-                      <p>Sesi Ujian : <strong>Sesi 1, Sesi 2 & Sesi 3</strong></p>
+                      <p>Pelaksanaan : <strong>Serentak</strong></p>
                       <p>Waktu : <strong>Pukul 07:30 - Selesai</strong></p>
                     </div>
                   </div>

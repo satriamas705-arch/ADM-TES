@@ -12,6 +12,7 @@ import {
 import { ExamAdminData, Siswa } from '../types';
 import { KopSurat } from '../components/KopSurat';
 import { generateQrMatrix } from '../utils/qrCode';
+import { triggerResponsivePrint } from '../utils/printHelper';
 
 interface KartuUjianViewProps {
   data: ExamAdminData;
@@ -24,6 +25,7 @@ export const KartuUjianView: React.FC<KartuUjianViewProps> = ({ data }) => {
   const [selectedSiswaId, setSelectedSiswaId] = useState(data.siswaList[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [kartuPerPage, setKartuPerPage] = useState<2 | 4>(4);
+  const [isPrinting, setIsPrinting] = useState<boolean>(false);
 
   const uniqueClasses = Array.from(new Set(data.siswaList.map(s => s.kelas))).sort();
 
@@ -55,7 +57,11 @@ export const KartuUjianView: React.FC<KartuUjianViewProps> = ({ data }) => {
   }
 
   const handlePrint = () => {
-    window.print();
+    triggerResponsivePrint(
+      () => setIsPrinting(true),
+      () => setIsPrinting(false),
+      100
+    );
   };
 
   return (
@@ -76,10 +82,24 @@ export const KartuUjianView: React.FC<KartuUjianViewProps> = ({ data }) => {
 
         <button
           onClick={handlePrint}
-          className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-600/30 transition active:scale-95"
+          disabled={isPrinting}
+          className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold text-xs shadow-lg transition active:scale-95 cursor-pointer ${
+            isPrinting
+              ? 'bg-blue-400 text-white cursor-wait'
+              : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/30'
+          }`}
         >
-          <Printer className="w-4 h-4" />
-          <span>Cetak {studentsToPrint.length} Kartu Sekarang</span>
+          {isPrinting ? (
+            <>
+              <Sparkles className="w-4 h-4 animate-spin text-amber-300" />
+              <span>Menyiapkan Cetak...</span>
+            </>
+          ) : (
+            <>
+              <Printer className="w-4 h-4" />
+              <span>Cetak {studentsToPrint.length} Kartu Sekarang</span>
+            </>
+          )}
         </button>
       </div>
 
@@ -286,9 +306,9 @@ export const KartuUjianView: React.FC<KartuUjianViewProps> = ({ data }) => {
                               <td className="font-semibold text-black">{siswa.kelas} / ({siswa.jenisKelamin === 'L' ? 'Laki-Laki' : 'Perempuan'})</td>
                             </tr>
                             <tr>
-                              <td className="text-gray-700 font-medium py-0.5">Ruang / Sesi</td>
+                              <td className="text-gray-700 font-medium py-0.5">Ruang Ujian</td>
                               <td>:</td>
-                              <td className="font-bold text-blue-900">{siswa.ruang} / Sesi {siswa.sesi}</td>
+                              <td className="font-bold text-blue-900">{siswa.ruang}</td>
                             </tr>
                             <tr>
                               <td className="text-gray-700 font-medium py-0.5">Nomor Meja</td>
@@ -310,7 +330,7 @@ export const KartuUjianView: React.FC<KartuUjianViewProps> = ({ data }) => {
                         <ol className="list-decimal pl-3 space-y-0.5 text-[8px]">
                           <li>Kartu wajib dibawa setiap hari selama ujian berlangsung.</li>
                           <li>Duduk di meja sesuai nomor ruang dan nomor meja tertera.</li>
-                          <li>Hadir 15 menit sebelum ujian sesi dimulai.</li>
+                          <li>Hadir 15 menit sebelum ujian dimulai.</li>
                         </ol>
                       </div>
 
